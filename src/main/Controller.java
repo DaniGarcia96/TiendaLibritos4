@@ -8,10 +8,9 @@ import javafx.scene.control.*;
 
 import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Controller implements Initializable {
 
@@ -71,9 +70,6 @@ public class Controller implements Initializable {
         System.out.println("hi");
         initSateStetUp();
     }
-
-
-
     private void initSateStetUp(){
         if(process_button.isDisable()){process_button.setDisable(false);}
 
@@ -85,10 +81,7 @@ public class Controller implements Initializable {
         item_info_textfield.setEditable(false);
         subtotal_textfield.setEditable(false);
     }
-
-
     @FXML private void processItem(){
-
         if(lookUpID(book_id_textfield.getText())){
             process_button.setDisable(true);
             confirm_button.setDisable(false);
@@ -107,7 +100,6 @@ public class Controller implements Initializable {
             }
         }
     }
-
     @FXML private void confirmItem(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Are you Sure?");
@@ -117,28 +109,26 @@ public class Controller implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == buttonTypeYes){
-            System.out.println("yes");
-            itemsProcessed++;
             process_button.setText("Process Item #"+(itemsProcessed+1));
             lable2.setText("Enter Book ID for Item #" + (itemsProcessed + 1));
             lable3.setText("Enter quantity for Item #"+(itemsProcessed+1));
+            writeToTransaction();
+            itemsProcessed++;
             processItem();
         }else if(result.get() == buttonTypeNo){
-            System.out.println("no");
-        }
 
-    }
+        }
+        process_button.setDisable(false);
+        confirm_button.setDisable(true);
+}
     @FXML private void newOrder(){
         initSateStetUp();
     }
-
     @FXML private void quitApplication(){
         try {fr.close(); br.close();}
         catch (IOException e) {e.printStackTrace();}
         Platform.exit();
     }
-
-
     private void fillTable() throws IOException {
         String line = null;
         while ((line = br.readLine()) != null){
@@ -151,5 +141,16 @@ public class Controller implements Initializable {
         String val = map.get(id);
         if(val == null){return false;}
         else {return true;}
+    }
+    private void writeToTransaction(){
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyMMddhhmmss");
+        try {
+            String dateToString = dateFormat.format(date);
+            if(itemsProcessed == 0){fw.write(dateToString+ ", " + item_info_textfield.getText());}
+            else {fw.write("\n" + dateToString + ", " + item_info_textfield.getText());}
+            fw.flush();
+        }
+        catch (IOException e) {e.printStackTrace();}
     }
 }

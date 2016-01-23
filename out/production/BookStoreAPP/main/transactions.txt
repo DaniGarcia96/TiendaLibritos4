@@ -1,0 +1,1 @@
+java.text.SimpleDateFormat@b057e40, 88888, "Terminal City - Linda Fairstein", 10.95
