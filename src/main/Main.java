@@ -3,7 +3,7 @@
  Assignment title: Program 1 – Event-driven Programming
  Date: Sunday January 24, 2016
 */
-package sample;
+package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
