@@ -19,10 +19,15 @@ public class Controller implements Initializable {
     @FXML private Label lable3;
     @FXML private Label lable4;
     @FXML private Label lable5;
+
     private int itemsProcessed = 0;
+    private float discount = 0.0f;
+    private int percent = 0;
+    private float total = 0.0f;
+    private int itemsInOrder = 0;
+
     private FileWriter fw;
     private PrintWriter pw;
-
     private FileReader fr;
     private BufferedReader br;
     private Scanner sc;
@@ -44,20 +49,18 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File f = new File("src/main/inventory.txt");
-        File fileTowrite = new File("src/main/transactions.txt");
+        File fileToWrite = new File("src/main/transactions.txt");
 
         map = new HashMap<>();
-        try {fileTowrite.createNewFile();}
+        try {fileToWrite.createNewFile();}
         catch (IOException e) {e.printStackTrace();}
 
-
         try {
-            fw = new FileWriter(fileTowrite);
+            fw = new FileWriter(fileToWrite,true);
             pw = new PrintWriter(fw);
         }
         catch (FileNotFoundException e) {e.printStackTrace();}
         catch (IOException e) {e.printStackTrace();}
-
 
         try {
             fr = new FileReader(f);
@@ -67,12 +70,17 @@ public class Controller implements Initializable {
         catch (FileNotFoundException e) {e.printStackTrace();}
         catch (IOException e) {e.printStackTrace();}
 
-        System.out.println("hi");
         initSateStetUp();
     }
     private void initSateStetUp(){
+        itemsProcessed = 0;
+        discount = 0.0f;
+        percent = 0;
+        total = 0.0f;
+        itemsInOrder = 0;
         if(process_button.isDisable()){process_button.setDisable(false);}
 
+        item_order_textfiled.setDisable(false);
         item_info_textfield.setDisable(true);
         subtotal_textfield.setDisable(true);
         confirm_button.setDisable(true);
@@ -82,24 +90,44 @@ public class Controller implements Initializable {
         subtotal_textfield.setEditable(false);
     }
     @FXML private void processItem(){
-        if(lookUpID(book_id_textfield.getText())){
+        if(!isItemOrder_Int(item_order_textfiled.getText())){
+            basicError("Please enter a number > 0",true);
+        }
+        else if(lookUpID(book_id_textfield.getText())){
             process_button.setDisable(true);
             confirm_button.setDisable(false);
-            item_info_textfield.setText(map.get(book_id_textfield.getText()));
+            item_order_textfiled.setDisable(true);
+            String s = map.get(book_id_textfield.getText());
+            String [] tokens = s.split(",");
+            total += Float.parseFloat(tokens[2]) * Float.parseFloat(quanity_textfield.getText());
+            item_info_textfield.setText(tokens[0] + " " +tokens[1] + " $" + tokens[2] +" " + quanity_textfield.getText()+ " %" + (int) (discount * 100) + " $" + total);
         }
-        else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Can't find ID?");
-            ButtonType buttonTypeOk = new ButtonType("OK");
-
-            alert.getButtonTypes().setAll(buttonTypeOk);
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == buttonTypeOk){
-               initSateStetUp();
-            }
-        }
+        else {basicError("Can't find book Id",false);}
     }
+
+    private void updateItemInfo(){
+         if(lookUpID(book_id_textfield.getText())){
+            String s = map.get(book_id_textfield.getText());
+            String [] tokens = s.split(",");
+            total += Float.parseFloat(tokens[2]) * Float.parseFloat(quanity_textfield.getText());
+            item_info_textfield.setText(tokens[0] + " " +tokens[1] + " $" + tokens[2] +" " + quanity_textfield.getText()+ " %" + (int) (discount * 100) + " $" + total);
+        }
+        else {basicError("Can't find book Id",false);}
+
+    }
+    private boolean isItemOrder_Int(String text) {
+       try {
+           int val = Integer.parseInt(text);
+           if(val > 0){return true;}
+           else {return false;}
+       }
+       catch (NumberFormatException e){
+           e.printStackTrace();
+           return false;
+       }
+
+    }
+
     @FXML private void confirmItem(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Are you Sure?");
@@ -109,17 +137,25 @@ public class Controller implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == buttonTypeYes){
-            process_button.setText("Process Item #"+(itemsProcessed+1));
-            lable2.setText("Enter Book ID for Item #" + (itemsProcessed + 1));
-            lable3.setText("Enter quantity for Item #"+(itemsProcessed+1));
-            writeToTransaction();
-            itemsProcessed++;
-            processItem();
-        }else if(result.get() == buttonTypeNo){
+            System.out.println(item_order_textfiled.getText() + " " + (itemsProcessed +1));
+            if(Integer.parseInt(item_order_textfiled.getText()) > (itemsProcessed +1)){
+                process_button.setText("Process Item #"+(itemsProcessed+1));
+                lable2.setText("Enter Book ID for Item #" + (itemsProcessed + 1));
+                lable3.setText("Enter quantity for Item #"+(itemsProcessed+1));
+                writeToTransaction();
+                itemsProcessed++;
+                processItem();
+            }else{
+                System.out.println("hi");
+                updateItemInfo();
+                writeToTransaction();
+                process_button.setDisable(true);
+                confirm_button.setDisable(true);
+            }
 
-        }
-        process_button.setDisable(false);
-        confirm_button.setDisable(true);
+
+        }else if(result.get() == buttonTypeNo){}
+
 }
     @FXML private void newOrder(){
         initSateStetUp();
@@ -147,10 +183,24 @@ public class Controller implements Initializable {
         DateFormat dateFormat = new SimpleDateFormat("yyMMddhhmmss");
         try {
             String dateToString = dateFormat.format(date);
-            if(itemsProcessed == 0){fw.write(dateToString+ ", " + item_info_textfield.getText());}
-            else {fw.write("\n" + dateToString + ", " + item_info_textfield.getText());}
+            percent = (int) (discount * 100);
+            fw.write(dateToString+ ", " + item_info_textfield.getText()+ ", " + quanity_textfield.getText()+", "+percent+"%, "+ String.format("%.2g%n", total));
             fw.flush();
         }
         catch (IOException e) {e.printStackTrace();}
     }
+    private void basicError(String text, boolean shouldInitSateStetUp){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(text);
+        ButtonType buttonTypeOk = new ButtonType("OK");
+
+        alert.getButtonTypes().setAll(buttonTypeOk);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == buttonTypeOk && shouldInitSateStetUp){
+            initSateStetUp();
+        }
+    }
+
+
 }
