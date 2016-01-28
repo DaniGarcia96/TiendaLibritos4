@@ -1,10 +1,3 @@
-160124124125, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124524, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124604, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124612, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124857, 11111  "Top Secret Twenty One - Janet Evanovich" $ 8.99 2 %0 $17.98, 2, 0%, 18
-160124124911, 11111  "Top Secret Twenty One - Janet Evanovich" $ 8.99 2 %0 $35.96, 3, 0%, 36
-160124124934, 88888  "Terminal City - Linda Fairstein" $ 10.95 3 %0 $32.85, 3, 0%, 33
-160124125715, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $21.9, 1, 0%, 22
-160124125728, 11111  "Top Secret Twenty One - Janet Evanovich" $ 8.99 1 %0 $8.99, 1, 0%, 9.0
-160124125736, 22222  "W Is For Wasted - Sue Grafton" $ 9.95 1 %0 $27.93, 1, 0%, 28
+160124084353, 11111,  "Top Secret Twenty One - Janet Evanovich",  8.99, 2, .2f, 17.98, 01/24/16 20:43:53 PM EST
+160124084353, 88888,  "Terminal City - Linda Fairstein",  10.95, 10, .2f, 93.07, 01/24/16 20:43:53 PM EST
+160124084353, 55555,  "Everyday Italian - Giada de Laurentiis",  18.99, 5, .2f, 85.45, 01/24/16 20:43:53 PM EST

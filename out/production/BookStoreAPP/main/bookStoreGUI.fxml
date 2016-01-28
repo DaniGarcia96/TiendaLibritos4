@@ -22,7 +22,7 @@
                         <HBox AnchorPane.rightAnchor="0.0">
                            <children>
                               <Label fx:id="lable1" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="256.0" text="Enter number of Items in this order :" />
-                              <TextField fx:id="item_order_textfiled" prefHeight="31.0" prefWidth="380.0" />
+                              <TextField fx:id="item_order_textfiled" prefHeight="31.0" prefWidth="494.0" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
@@ -31,7 +31,7 @@
                         <HBox layoutX="178.0" layoutY="32.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Label fx:id="lable2" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="256.0" text="Enter Book ID for Item #1 :" />
-                              <TextField fx:id="book_id_textfield" prefHeight="31.0" prefWidth="380.0" />
+                              <TextField fx:id="book_id_textfield" prefHeight="31.0" prefWidth="494.0" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
@@ -40,7 +40,7 @@
                         <HBox layoutX="198.0" layoutY="64.0">
                            <children>
                               <Label fx:id="lable3" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="256.0" text="Enter quanity for Item #1 :" />
-                              <TextField fx:id="quanity_textfield" prefHeight="31.0" prefWidth="380.0" />
+                              <TextField fx:id="quanity_textfield" prefHeight="31.0" prefWidth="494.0" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
@@ -49,7 +49,7 @@
                         <HBox layoutX="188.0" layoutY="96.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Label fx:id="lable4" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="257.0" text="Item #1 info :" />
-                              <TextField fx:id="item_info_textfield" prefHeight="31.0" prefWidth="380.0" />
+                              <TextField fx:id="item_info_textfield" prefHeight="31.0" prefWidth="494.0" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
@@ -58,7 +58,7 @@
                         <HBox layoutX="198.0" layoutY="128.0">
                            <children>
                               <Label fx:id="lable5" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="258.0" text="Order subtotal for 0 item(s) :" />
-                              <TextField fx:id="subtotal_textfield" prefHeight="31.0" prefWidth="380.0" />
+                              <TextField fx:id="subtotal_textfield" prefHeight="31.0" prefWidth="494.0" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
@@ -70,8 +70,8 @@
                      <children>
                         <Button fx:id="process_button" layoutX="62.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#processItem" text="Process Item#1" />
                         <Button fx:id="confirm_button" mnemonicParsing="false" onMouseClicked="#confirmItem" text="Confirm Item #1" />
-                        <Button fx:id="view_order_button" mnemonicParsing="false" text="View Order " />
-                        <Button fx:id="finish_order_button" mnemonicParsing="false" text="Finish Order" />
+                        <Button fx:id="view_order_button" mnemonicParsing="false" onMouseClicked="#viewOrder" text="View Order " />
+                        <Button fx:id="finish_order_button" mnemonicParsing="false" onMouseClicked="#finishOrder" text="Finish Order" />
                         <Button fx:id="new_order_button" mnemonicParsing="false" onMouseClicked="#newOrder" text="New Order" />
                         <Button fx:id="exit_button" mnemonicParsing="false" onMouseClicked="#quitApplication" text="Exit" />
                      </children>

@@ -1,7 +1,0 @@
-160124124125, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124524, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124604, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124612, 88888  "Terminal City - Linda Fairstein" $ 10.95 1 %0 $10.95, 1, 0%, 11
-160124124857, 11111  "Top Secret Twenty One - Janet Evanovich" $ 8.99 2 %0 $17.98, 2, 0%, 18
-160124124911, 11111  "Top Secret Twenty One - Janet Evanovich" $ 8.99 2 %0 $35.96, 3, 0%, 36
-160124124934, 88888  "Terminal City - Linda Fairstein" $ 10.95 3 %0 $32.85, 3, 0%, 33
